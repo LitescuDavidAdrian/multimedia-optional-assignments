@@ -100,4 +100,9 @@ window.onload = function () {
 
     newGameButton.addEventListener('click', startNewGame);
     
+    guessInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            guessButton.click();
+        }
+    });
 };
