@@ -29,6 +29,7 @@
             max-width: 95vw;
             width: auto;
             border-radius: 15px;
+            transition: all 0.1s ease;
         }
 
         /* Keypad container */
@@ -40,6 +41,7 @@
             border-radius: 10px;
             align-items: flex-end;
             position: relative;
+            transition: all 0.1s ease;
         }
 
         /* White keys */
@@ -53,10 +55,15 @@
             border-radius: 5px;
             position: relative;
             cursor: pointer;
+            transition: background-color 0.1s ease, transform 0.1s ease;
         }
 
         .whiteKey:hover {
             background-color: #f0f0f0;
+        }
+
+        .whiteKey:active {
+            transform: translateY(2px);
         }
 
         /* Black keys */
@@ -72,10 +79,15 @@
             border-radius: 3px;
             align-self: flex-start;
             cursor: pointer;
+            transition: background-color 0.1s ease, transform 0.1s ease;
         }
 
         .blackKey:hover {
             background-color: #333;
+        }
+
+        .blackKey:active {
+            transform: translateY(2px);
         }
 
         @media (max-width: 480px) {
