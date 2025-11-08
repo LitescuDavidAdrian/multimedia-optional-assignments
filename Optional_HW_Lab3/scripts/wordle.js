@@ -66,21 +66,22 @@ window.onload = function () {
             let currentLetter = document.createTextNode(guess[i]);
             currentCell.append(currentLetter);
 
-            if (guess[i] == word[i]) {
-                //green cell, letter on right position
-                currentCell.classList.add('green');
-            }
-            else {
-                if (word.indexOf(guess[i]) < 0) {
-                    //red cell, letter not found
-                    currentCell.classList.add('red');
-                }
-                else {
-                    //yellow cell
-                    currentCell.classList.add('yellow');
-                }
-            }
+            setTimeout(() => {
+                currentCell.classList.add('flip');
+
+                setTimeout(() => {
+                    if (guess[i] == word[i]) {
+                        currentCell.classList.add('green');
+                    } else if (word.indexOf(guess[i]) < 0) {
+                        currentCell.classList.add('red');
+                    } else {
+                        currentCell.classList.add('yellow');
+                    }
+                    currentCell.classList.remove('flip');
+                }, 250);
+            }, i * 300);
         }
+        
         if (word == guess) {
             alert("You won");
             gameOver = true;
@@ -99,7 +100,7 @@ window.onload = function () {
     })
 
     newGameButton.addEventListener('click', startNewGame);
-    
+
     guessInput.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             guessButton.click();

@@ -65,6 +65,7 @@ body {
     text-align: center;
     display: inline-block;
     margin: 2px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .green {
@@ -77,4 +78,20 @@ body {
 
 .red {
     background-color: lightcoral;
+}
+
+.flip {
+    animation: flip 0.5s forwards;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
 }
