@@ -5,6 +5,8 @@ window.onload = function () {
     let guessButton = this.document.getElementById('guessButton');
     let guessInput = this.document.getElementById('guessInput');
 
+    let errorMessage = document.getElementById('errorMessage');
+
     for (let i = 0; i < 6; i++) {
         let row = this.document.createElement('div');
         row.classList.add('row');
@@ -30,6 +32,13 @@ window.onload = function () {
         }
 
         let guess = guessInput.value;
+
+        if (guess.length !== 5) {
+            errorMessage.textContent = "Guess must be exactly 5 letters!";
+            return;
+        } else {
+            errorMessage.textContent = "";
+        }
 
         for (let i = 0; i < 5; i++) 
         {
