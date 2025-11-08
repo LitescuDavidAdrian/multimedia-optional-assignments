@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laboratory 2 - Piano keyboard</title>
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
             margin: 0;
         }
@@ -18,7 +20,7 @@
             font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
-        /* keyboard frame */
+        /* Keyboard frame */
         #keyboard {
             background-color: #333;
             border: 1px solid black;
@@ -29,100 +31,116 @@
             border-radius: 15px;
         }
 
-        /* keypad */
+        /* Keypad container */
         #keypad {
             background-color: red;
             display: flex;
-            overflow-x: auto;
+            width: 100%;
+            overflow: hidden;
             border-radius: 10px;
+            align-items: flex-end;
+            position: relative;
         }
 
+        /* White keys */
         .whiteKey {
             height: 240px;
-            width: 40px;
+            flex: 1 1 0;
+            min-width: 28px;
             background-color: white;
             border: 1px solid black;
             box-sizing: border-box;
             border-radius: 5px;
+            position: relative;
         }
 
+        /* Black keys */
         .blackKey {
             height: 140px;
             width: 24px;
+            flex: 0 0 24px;
             background-color: black;
             border: 1px solid black;
             margin: 0 -13px;
             z-index: 2;
             box-sizing: border-box;
             border-radius: 3px;
+            align-self: flex-start;
+        }
+
+        @media (max-width: 480px) {
+            .whiteKey { min-width: 22px; }
+            .blackKey { width: 20px; flex: 0 0 20px; margin: 0 -10px; }
         }
     </style>
 </head>
+
 <body>
     <div id="keyboard">
-        <div id="keypad">            
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>            
+        <div id="keypad">
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
-            <div class="blackKey"></div>            
-            <div class="whiteKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>            
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
-            <div class="blackKey"></div>            
+            <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
-            <div class="whiteKey"></div>            
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>            
             <div class="whiteKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
-            <div class="whiteKey"></div>            
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
-            <div class="blackKey"></div>            
-            <div class="whiteKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>
-            <div class="blackKey"></div>
-            <div class="whiteKey"></div>            
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
             <div class="blackKey"></div>
             <div class="whiteKey"></div>
-            <div class="blackKey"></div>            
-            <div class="whiteKey"></div>                       
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
+            <div class="blackKey"></div>
+            <div class="whiteKey"></div>
             <div class="whiteKey"></div>
         </div>
     </div>
 </body>
+
 </html>
