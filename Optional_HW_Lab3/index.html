@@ -10,16 +10,24 @@
 </head>
 
 <body>
+    <h1 id="gameTitle">Wordle Game</h1>
     <div id="board"></div>
 
     <div id="inputContainer">
-        <input type="text" id="guessInput" />
+        <input type="text" id="guessInput"/>
         <button type="button" id="guessButton">Guess</button>
     </div>
 
     <div id="errorMessage" style="color: red; margin-top: 8px; height: 18px;"></div>
 
     <button id="newGameButton" style="display: none; margin-top: 10px;">New Game</button>
+
+    <div id="stats">
+        <p>Games Played: <span id="gamesPlayed">0</span></p>
+        <p>Wins: <span id="wins">0</span></p>
+        <p>Win %: <span id="winPercent">0</span></p>
+        <p>Current Streak: <span id="currentStreak">0</span></p>
+    </div>
 </body>
 
 </html>

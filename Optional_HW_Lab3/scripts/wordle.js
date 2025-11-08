@@ -10,6 +10,24 @@ window.onload = function () {
     let newGameButton = document.getElementById('newGameButton');
 
 
+    let gamesPlayed = 0;
+    let wins = 0;
+    let currentStreak = 0;
+
+    function updateStats(win) {
+        gamesPlayed++;
+        if (win) {
+            wins++;
+            currentStreak++;
+        } else {
+            currentStreak = 0;
+        }
+        document.getElementById('gamesPlayed').textContent = gamesPlayed;
+        document.getElementById('wins').textContent = wins;
+        document.getElementById('winPercent').textContent = Math.round((wins / gamesPlayed) * 100);
+        document.getElementById('currentStreak').textContent = currentStreak;
+    }
+
     for (let i = 0; i < 6; i++) {
         let row = this.document.createElement('div');
         row.classList.add('row');
@@ -59,42 +77,77 @@ window.onload = function () {
             errorMessage.textContent = "";
         }
 
+        let targetLetters = word.split('');
+        let guessLetters = guess.split('');
+        let letterUsed = Array(targetLetters.length).fill(false);
+
+        let targetCount = {};
+        for (let l of targetLetters) {
+            targetCount[l] = (targetCount[l] || 0) + 1;
+        }
+
+        let usedCount = {};
+
         for (let i = 0; i < 5; i++) {
             let currentCell = document.querySelector(
                 `[data-row="${tries}"][data-column="${i}"]`
             );
-            let currentLetter = document.createTextNode(guess[i]);
-            currentCell.append(currentLetter);
-
-            setTimeout(() => {
-                currentCell.classList.add('flip');
-
-                setTimeout(() => {
-                    if (guess[i] == word[i]) {
-                        currentCell.classList.add('green');
-                    } else if (word.indexOf(guess[i]) < 0) {
-                        currentCell.classList.add('red');
-                    } else {
-                        currentCell.classList.add('yellow');
-                    }
-                    currentCell.classList.remove('flip');
-                }, 250);
-            }, i * 300);
+            currentCell.textContent = guessLetters[i];
         }
-        
+
+        for (let i = 0; i < 5; i++) {
+            ((colIndex, rowIndex) => {
+                setTimeout(() => {
+                    let currentCell = document.querySelector(
+                        `[data-row="${rowIndex}"][data-column="${colIndex}"]`
+                    );
+
+                    currentCell.classList.add('flip');
+
+                    setTimeout(() => {
+                        let colorClass;
+
+                        if (guessLetters[colIndex] === targetLetters[colIndex]) {
+                            colorClass = 'green';
+                            usedCount[guessLetters[colIndex]] = (usedCount[guessLetters[colIndex]] || 0) + 1;
+                        } else if (targetLetters.includes(guessLetters[colIndex])) {
+                            usedCount[guessLetters[colIndex]] = usedCount[guessLetters[colIndex]] || 0;
+                            let totalInTarget = targetCount[guessLetters[colIndex]];
+                            if (usedCount[guessLetters[colIndex]] < totalInTarget) {
+                                colorClass = 'yellow';
+                                usedCount[guessLetters[colIndex]]++;
+                            } else {
+                                colorClass = 'red';
+                            }
+                        } else {
+                            colorClass = 'red';
+                        }
+
+                        currentCell.classList.add(colorClass);
+                        currentCell.classList.remove('flip');
+                    }, 250);
+
+                }, colIndex * 300);
+            })(i, tries);
+        }
+
         if (word == guess) {
             alert("You won");
             gameOver = true;
             // guessButton.setAttribute('disabled', 'disabled');
             newGameButton.style.display = 'block';
+            updateStats(true);
             return;
         };
         if (tries == 5) {
             alert(`You lost! The word was: ${word.toUpperCase()}`);
             gameOver = true;
             newGameButton.style.display = 'block';
+            updateStats(false);
             return;
         }
+
+        guessInput.value = '';
 
         tries++;
     })
