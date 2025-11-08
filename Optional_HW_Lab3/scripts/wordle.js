@@ -89,7 +89,7 @@ window.onload = function () {
             return;
         };
         if (tries == 5) {
-            alert("You lost");
+            alert(`You lost! The word was: ${word.toUpperCase()}`);
             gameOver = true;
             newGameButton.style.display = 'block';
             return;
