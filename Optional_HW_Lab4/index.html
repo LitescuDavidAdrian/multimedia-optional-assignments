@@ -88,7 +88,7 @@
 
         async function loadAlbums() {
             const row = document.getElementById('albumsRow');
-            const jsonUrl = 'data/library.json'; 
+            const jsonUrl = 'data/library.json';
             console.log('[DEBUG] Fetching library.json from:', jsonUrl);
 
             try {
@@ -101,13 +101,16 @@
                 if (!albums.length) {
                     console.warn('[DEBUG] No albums in JSON, using fallback');
                     renderAlbums(FALLBACK_LIBRARY, row, true);
+                    setupModal(FALLBACK_LIBRARY);
                     return;
                 }
 
                 renderAlbums(albums, row, false);
+                setupModal(albums);
             } catch (err) {
                 console.error('[ERROR] Could not load library.json:', err);
                 renderAlbums(FALLBACK_LIBRARY, row, true);
+                setupModal(FALLBACK_LIBRARY);
             }
         }
 
@@ -143,6 +146,25 @@
                 row.appendChild(col);
             });
         }
+
+        function setupModal(albums) {
+            const modal = document.getElementById('exampleModal');
+            const modalTitle = modal.querySelector('.modal-title');
+            const modalBody = modal.querySelector('.modal-body');
+
+            document.getElementById('albumsRow').addEventListener('click', function (e) {
+                const btn = e.target.closest('button[data-album-id]');
+                if (!btn) return; 
+
+                const albumId = btn.getAttribute('data-album-id');
+                const album = albums.find(a => (a.id ?? a.title) === albumId);
+                if (!album) return;
+
+                modalTitle.textContent = `${album.artist} - ${album.title}`;
+                modalBody.innerHTML = `<p>Tracklist will go here.</p>`;
+            });
+        }
+
 
         document.addEventListener('DOMContentLoaded', loadAlbums);
     </script>
