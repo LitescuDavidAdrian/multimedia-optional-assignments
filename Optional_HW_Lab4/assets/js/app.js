@@ -120,8 +120,39 @@ function setupModal() {
             : Array.isArray(album.tracks) ? album.tracks
                 : (album.tracklist ? [album.tracklist] : (album.tracks ? [album.tracks] : []));
 
-        if (tracks.length > 0) {
-            let html = `<div class="table-responsive"><table class="table table-striped table-sm">
+        if (tracks.length > 0) { 
+            let totalSeconds = 0;
+            let minLength = Infinity;
+            let maxLength = 0;
+
+            tracks.forEach(track => {
+                let len = 0;
+                if (track.trackLength) {
+                    const parts = track.trackLength.split(":");
+                    len = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+                }
+                totalSeconds += len;
+                if (len < minLength) minLength = len;
+                if (len > maxLength) maxLength = len;
+            });
+
+            const avgSeconds = totalSeconds / tracks.length;
+            function formatTime(s) {
+                const m = Math.floor(s / 60);
+                const sec = Math.round(s % 60).toString().padStart(2, "0");
+                return `${m}:${sec}`;
+            }
+
+            const statsHtml = `
+                <div class="mb-3">
+                    <p><strong>Total tracks:</strong> ${tracks.length}</p>
+                    <p><strong>Total duration:</strong> ${formatTime(totalSeconds)}</p>
+                    <p><strong>Average track length:</strong> ${formatTime(avgSeconds)}</p>
+                    <p><strong>Shortest track:</strong> ${formatTime(minLength)}</p>
+                    <p><strong>Longest track:</strong> ${formatTime(maxLength)}</p>
+                </div>`;
+
+            let html = statsHtml + `<div class="table-responsive"><table class="table table-striped table-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -148,18 +179,19 @@ function setupModal() {
             });
 
             html += `</tbody></table></div>`;
-
             modalBody.innerHTML = html;
 
             setTimeout(() => {
                 const titleEl = modal.querySelector(".modal-title");
                 if (titleEl) titleEl.focus();
             }, 120);
+
         } else {
             modalBody.innerHTML = `<p>No tracks available.</p>`;
         }
     });
 }
+
 
 function setupSearch() {
     const input = document.getElementById("searchInput");
@@ -182,8 +214,6 @@ function setupSearch() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", loadAlbums);
-
 function setupSort() {
     const select = document.getElementById("sortSelect");
     const row = document.getElementById("albumsRow");
@@ -191,7 +221,6 @@ function setupSort() {
     select.addEventListener("change", function (e) {
         const val = e.target.value;
 
-        // make a copy of ALL_ALBUMS for sorting
         let sorted = ALL_ALBUMS.slice();
 
         if (val === "artist-asc") {
@@ -215,3 +244,5 @@ function setupSort() {
         renderAlbums(sorted, row);
     });
 }
+
+document.addEventListener("DOMContentLoaded", loadAlbums);
