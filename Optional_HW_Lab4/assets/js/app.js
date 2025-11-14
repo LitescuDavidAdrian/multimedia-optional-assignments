@@ -114,10 +114,17 @@ function setupModal(albums) {
                 const url = track.url ?? "#";
 
                 html += `<tr>
-                   <td>${track.number ?? ""}</td>
-                   <td><a class="track-link" href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></td>
-                   <td>${escapeHtml(length)}</td>
-                 </tr>`;
+                    <td>${track.number ?? ""}</td>
+                    <td>
+                        <a href="${url}" 
+                        class="text-decoration-none fw-semibold link-primary"
+                        target="_blank" 
+                        rel="noopener noreferrer">
+                        ${escapeHtml(title)}
+                        </a>
+                    </td>
+                    <td>${escapeHtml(length)}</td>
+                </tr>`;
             });
 
             html += `</tbody></table></div>`;
