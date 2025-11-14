@@ -46,6 +46,8 @@ function renderAlbums(list, row) {
         const col = el("div", { class: "col-xl-2 col-md-3 col-sm-6 col-12 mb-4" });
         const card = el("div", { class: "card h-100 shadow-sm" });
 
+        const imgWrap = el("div", { class: "img-wrap" });
+
         const thumbnailPath = `assets/img/${album.thumbnail ?? ""}`;
         const img = el("img", {
             class: "album-img card-img-top",
@@ -55,6 +57,12 @@ function renderAlbums(list, row) {
                 onerror: "this.onerror=null;this.src='assets/img/placeholder.png';"
             }
         });
+
+        const overlayText = `${album.artist ?? ""}${album.artist && (album.title ?? album.album) ? " — " : ""}${album.title ?? album.album ?? ""}`;
+        const overlay = el("div", { class: "img-overlay", text: overlayText });
+
+        imgWrap.appendChild(img);
+        imgWrap.appendChild(overlay);
 
         const cardBody = el("div", { class: "card-body d-flex flex-column" });
         const title = el("h5", { class: "card-title mb-1", text: album.artist ?? album.artistName ?? "" });
@@ -76,7 +84,7 @@ function renderAlbums(list, row) {
         cardBody.appendChild(subtitle);
         cardBody.appendChild(btn);
 
-        card.appendChild(img);
+        card.appendChild(imgWrap);   // use the wrap with overlay instead of raw img
         card.appendChild(cardBody);
 
         const tracksArray = Array.isArray(album.tracklist) ? album.tracklist
