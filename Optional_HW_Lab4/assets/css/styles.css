@@ -86,3 +86,26 @@
 @media (max-width: 575.98px) {
     .card.h-100 { transform: none; }
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+#backToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: none;
+}
+
+button, .btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+@media (max-width: 576px) {
+    .col-12.col-md-6 {
+        margin-bottom: 1rem;
+    }
+}

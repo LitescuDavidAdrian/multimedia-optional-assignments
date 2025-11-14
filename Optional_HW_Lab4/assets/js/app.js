@@ -85,7 +85,7 @@ function renderAlbums(list, row) {
         cardBody.appendChild(subtitle);
         cardBody.appendChild(btn);
 
-        card.appendChild(imgWrap);   // use the wrap with overlay instead of raw img
+        card.appendChild(imgWrap); 
         card.appendChild(cardBody);
 
         const tracksArray = Array.isArray(album.tracklist) ? album.tracklist
@@ -120,7 +120,7 @@ function setupModal() {
             : Array.isArray(album.tracks) ? album.tracks
                 : (album.tracklist ? [album.tracklist] : (album.tracks ? [album.tracks] : []));
 
-        if (tracks.length > 0) { 
+        if (tracks.length > 0) {
             let totalSeconds = 0;
             let minLength = Infinity;
             let maxLength = 0;
@@ -245,4 +245,34 @@ function setupSort() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", loadAlbums);
+function setupBackToTop() {
+    const btn = document.getElementById("backToTopBtn");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    });
+
+    btn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", loadAlbums());
+
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 100) { 
+        backToTopBtn.style.display = "block";
+    } else {
+        backToTopBtn.style.display = "none";
+    }
+});
+
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
